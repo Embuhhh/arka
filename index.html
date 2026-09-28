@@ -1,48 +1,20 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA</title><style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;background:#070a14;font-family:Poppins;justify-content:center;align-items:center;overflow:hidden}
-.c{position:relative;width:320px;height:300px;background:#131a33;display:flex;padding-left:20px;border-radius:50px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55);border:1px solid #1e2a5a}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:#070a14;font-family:Poppins;overflow:hidden}
+header{width:100%;height:70px;background:#131a33cc;backdrop-filter:blur(10px);display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #00f5ff22;position:fixed;top:0;z-index:100}
+header img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #00f5ff;box-shadow:0 0 10px #00f5ff}
+header span{color:#fff;font-weight:800;margin-left:12px;letter-spacing:3px}
+.main{flex:1;display:flex;justify-content:center;align-items:center;margin-top:70px}
+.c{position:relative;width:320px;height:300px;background:#131a33;display:flex;padding-left:20px;border-radius:50px;transition:all .9s cubic-bezier(.68,-0.55,.27,1.55);border:1px solid #1e2a5a}
 .cards{margin:auto;display:flex;width:90%;height:90%;align-items:center}
-.card{position:absolute;width:200px;height:200px;border-radius:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:18px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55)}
+.card{position:absolute;width:200px;height:200px;border-radius:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:18px;transition:all .9s cubic-bezier(.68,-0.55,.27,1.55)}
 .card:nth-child(1){background:#00f5ff;margin-left:0;z-index:4}
 .card:nth-child(2){background:#00d0ff;margin-left:20px;z-index:3}
 .card:nth-child(3){background:#0099cc;margin-left:40px;z-index:2}
 .card:nth-child(4){background:#0a2342;margin-left:60px;z-index:1}
 .b{position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:52px;height:52px;background:#fff;border-radius:50%;display:flex;justify-content:center;align-items:center;border:3px solid #00f5ff;box-shadow:0 0 15px #00f5ff;cursor:pointer;z-index:10}
 .b img{width:26px}
-
-/* DESKTOP - dibikin gede */
-@media (min-width: 768px){
- .c{width:500px;height:400px;border-radius:70px;padding-left:30px}
- .card{width:220px;height:220px;border-radius:50px;font-size:22px}
- .b{width:61px;height:61px;right:-25px}
- .b img{width:30px}
-}
+@media (min-width:768px){.c{width:500px;height:400px;border-radius:70px;padding-left:30px}.card{width:220px;height:220px;border-radius:50px;font-size:22px}.b{width:61px;height:61px;right:-25px}.b img{width:30px}header{padding:0 40px;height:80px}header img{width:54px;height:54px}}
 </style></head><body>
-<div class="c" id="m"><div class="cards">
-<a href="about.html" class="card">ABOUT</a>
-<a href="work.html" class="card">WORK</a>
-<a href="contact.html" class="card">CONTACT</a>
-<a href="play.html" class="card">PLAY</a>
-</div><div class="b" onclick="e()"><img id="i" src="https://img.icons8.com/forma-regular-filled/100/000000/forward.png"></div></div>
-<script>
-var m=document.getElementById("m"),a=document.getElementsByClassName("card"),im=document.getElementById("i"),f=0;
-function e(){
-  let isDesktop = window.innerWidth >= 768;
-  let openW = isDesktop? 1150 : 380;
-  let closeW = isDesktop? 500 : 320;
-  let stepOpen = isDesktop? 280 : 90;
-  let stepClose = isDesktop? 50 : 20;
-
-  if(f==0){
-    m.style.width=openW+"px";
-    im.style.rotate="180deg";
-    var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=stepOpen}f=1
-  }else{
-    m.style.width=closeW+"px";
-    im.style.rotate="0deg";
-    var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=stepClose}f=0
-  }
-}
-</script></body></html>
+<header><img src="arka.png"><span>ARKA</span></header
