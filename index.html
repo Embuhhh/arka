@@ -1,1 +1,23 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA</title><style>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');body{margin:0;height:100vh;display:flex;background:#070a14;font-family:Poppins}.c{margin:auto;width:500px;height:400px;background:#131a33;display:flex;padding-left:30px;border-radius:70px;zoom:.8;border:1px solid #00f5ff22}.cards{margin:auto;display:flex;width:90%;height:90%;align-items:center}.card{position:absolute;width:220px;height:220px;border-radius:50px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:22px}.card:nth-child(1){background:#00f5ff;margin-left:0}.card:nth-child(2){background:#00d0ff;margin-left:50px}.card:nth-child(3){background:#0099cc;margin-left:100px}.card:nth-child(4){background:#0a2342;margin-left:150px}.b{width:61px;height:61px;background:#131a33;border-radius:50%;display:flex;border:1px solid #00f5ff44;margin:auto -15px auto auto}.b img{margin:auto 5px auto auto;filter:invert(1)}</style></head><body><div class="c" id="m"><div class="cards"><a href="about.html" class="card">ABOUT</a><a href="work.html" class="card">WORK</a><a href="contact.html" class="card">CONTACT</a><a href="play.html" class="card">PLAY</a></div><div class="b" onclick="e()"><img id="i" width="30" src="https://img.icons8.com/forma-regular-filled/100/000000/forward.png"></div></div><script>var m=document.getElementById("m"),a=document.getElementsByClassName("card"),im=document.getElementById("i"),f=0;function e(){if(f==0){m.style.width="1150px";im.style.rotate="180deg";var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=280}f=1}else{m.style.width="500px";im.style.rotate="0deg";var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=50}f=0}}</script></body></html>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+body{margin:0;height:100vh;display:flex;background:#070a14;font-family:Poppins}
+.c{margin:auto;width:500px;height:400px;background:#131a33;display:flex;padding-left:30px;border-radius:70px;zoom:.8;border:1px solid #00f5ff22;transition:all.8s cubic-bezier(.68,-0.55,.27,1.55)}
+.cards{margin:auto;display:flex;width:90%;height:90%;align-items:center}
+.card{position:absolute;width:220px;height:220px;border-radius:50px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:22px;transition:all.8s cubic-bezier(.68,-0.55,.27,1.55)}
+.card:nth-child(1){background:#00f5ff;margin-left:0}
+.card:nth-child(2){background:#00d0ff;margin-left:50px}
+.card:nth-child(3){background:#0099cc;margin-left:100px}
+.card:nth-child(4){background:#0a2342;margin-left:150px}
+.b{width:65px;height:65px;background:#fff;border-radius:50%;display:flex;border:3px solid #00f5ff;box-shadow:0 0 20px #00f5ff,0 0 40px #00f5ff44;cursor:pointer;margin:auto -15px auto auto;transition:all.8s ease}
+.b img{margin:auto 5px auto auto;filter:none;transition:all.8s ease}
+</style></head><body>
+<div class="c" id="m"><div class="cards">
+<a href="about.html" class="card">ABOUT</a>
+<a href="work.html" class="card">WORK</a>
+<a href="contact.html" class="card">CONTACT</a>
+<a href="play.html" class="card">PLAY</a>
+</div><div class="b" onclick="e()"><img id="i" width="30" src="https://img.icons8.com/forma-regular-filled/100/000000/forward.png"></div></div>
+<script>
+var m=document.getElementById("m"),a=document.getElementsByClassName("card"),im=document.getElementById("i"),f=0;
+function e(){if(f==0){m.style.width="1150px";im.style.rotate="180deg";var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=280}f=1}else{m.style.width="500px";im.style.rotate="0deg";var ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=50}f=0}}
+</script></body></html>
