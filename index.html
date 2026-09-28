@@ -2,31 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:#070a14;font-family:Poppins;display:flex;flex-direction:column}
-header{width:100%;height:70px;background:#131a33;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #00f5ff33}
-header img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #00f5ff}
-header span{color:#fff;font-weight:800;margin-left:12px;letter-spacing:3px}
-.main{flex:1;display:flex;justify-content:center;align-items:center;padding:20px}
-.c{position:relative;width:320px;height:300px;background:#131a33;display:flex;padding-left:20px;border-radius:50px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55);border:1px solid #1e2a5a}
+header{width:100%;height:60px;background:#131a33;display:flex;align-items:center;padding:0 15px;border-bottom:1px solid #00f5ff22}
+header img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #00f5ff}
+header span{color:#fff;font-weight:800;margin-left:10px;letter-spacing:3px;font-size:16px}
+.main{flex:1;display:flex;justify-content:center;align-items:center;padding:10px}
+/* HP DIKECILIN */
+.c{position:relative;width:230px;height:190px;background:#131a33;display:flex;padding-left:15px;border-radius:35px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55);border:1px solid #1e2a5a}
 .cards{display:flex;width:90%;height:90%;align-items:center}
-.card{position:absolute;width:200px;height:200px;border-radius:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:18px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55)}
+.card{position:absolute;width:130px;height:130px;border-radius:25px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:13px;transition:all.9s cubic-bezier(.68,-0.55,.27,1.55)}
 .card:nth-child(1){background:#00f5ff;margin-left:0;z-index:4}
-.card:nth-child(2){background:#00d0ff;margin-left:20px;z-index:3}
-.card:nth-child(3){background:#0099cc;margin-left:40px;z-index:2}
-.card:nth-child(4){background:#0a2342;margin-left:60px;z-index:1}
-.b{position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:52px;height:52px;background:#fff;border-radius:50%;display:flex;justify-content:center;align-items:center;border:3px solid #00f5ff;box-shadow:0 0 15px #00f5ff;cursor:pointer;z-index:10}
-.b img{width:26px}
-@media (min-width:768px){.c{width:500px;height:400px;border-radius:70px;padding-left:30px}.card{width:220px;height:220px;border-radius:50px;font-size:22px}.b{width:61px;height:61px;right:-25px}.b img{width:30px}}
+.card:nth-child(2){background:#00d0ff;margin-left:12px;z-index:3}
+.card:nth-child(3){background:#0099cc;margin-left:24px;z-index:2}
+.card:nth-child(4){background:#0a2342;margin-left:36px;z-index:1}
+.b{position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:38px;height:38px;background:#fff;border-radius:50%;display:flex;justify-content:center;align-items:center;border:2px solid #00f5ff;box-shadow:0 0 10px #00f5ff;cursor:pointer;z-index:10}
+.b img{width:18px}
+/* DESKTOP TETEP GEDE */
+@media (min-width:768px){
+.c{width:500px;height:400px;border-radius:70px;padding-left:30px}
+.card{width:220px;height:220px;border-radius:50px;font-size:22px}
+.card:nth-child(2){margin-left:50px}.card:nth-child(3){margin-left:100px}.card:nth-child(4){margin-left:150px}
+.b{width:61px;height:61px;right:-25px}.b img{width:30px}
+header{height:70px;padding:0 30px}header img{width:48px;height:48px}
+}
 </style></head><body>
 <header><img src="arka.png"><span>ARKA</span></header>
-<div class="main">
-<div class="c" id="m"><div class="cards">
+<div class="main"><div class="c" id="m"><div class="cards">
 <a href="#" class="card">ABOUT</a>
 <a href="#" class="card">WORK</a>
 <a href="#" class="card">CONTACT</a>
 <a href="#" class="card">PLAY</a>
-</div><div class="b" onclick="e()"><img id="i" src="https://img.icons8.com/forma-regular-filled/100/000000/forward.png"></div></div>
-</div>
+</div><div class="b" onclick="e()"><img id="i" src="https://img.icons8.com/forma-regular-filled/100/000000/forward.png"></div></div></div>
 <script>
 var m=document.getElementById("m"),a=document.getElementsByClassName("card"),im=document.getElementById("i"),f=0;
-function e(){let d=innerWidth>=768,ow=d?1150:380,cw=d?500:320,so=d?280:90,sc=d?50:20;if(f==0){m.style.width=ow+"px";im.style.rotate="180deg";let ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=so}f=1}else{m.style.width=cw+"px";im.style.rotate="0deg";let ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=sc}f=0}}
+function e(){let d=innerWidth>=768,ow=d?1150:300,cw=d?500:230,so=d?280:65,sc=d?50:12;if(f==0){m.style.width=ow+"px";im.style.rotate="180deg";let ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=so}f=1}else{m.style.width=cw+"px";im.style.rotate="0deg";let ml=0;for(let j=0;j<a.length;j++){a[j].style.marginLeft=ml+"px";ml+=sc}f=0}}
 </script></body></html>
