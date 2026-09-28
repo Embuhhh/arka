@@ -1,34 +1,27 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA - Potion Merge</title><style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
-*{box-sizing:border-box}body{margin:0;background:#070a14;color:#fff;font-family:Poppins;touch-action:none}
-header{height:60px;background:#131a33;display:flex;align-items:center;padding:0 15px;border-bottom:1px solid #00f5ff22}
-header img{width:40px;height:40px;border-radius:50%;border:2px solid #00f5ff}
-.wrap{max-width:420px;margin:15px auto;padding:15px;text-align:center}
-.top{display:flex;justify-content:space-between;background:#131a33;border:1px solid #1e2a5a;padding:12px 18px;border-radius:18px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;background:#131a33;border:1px solid #1e2a5a;padding:10px;border-radius:24px}
-.cell{aspect-ratio:1;background:#070a14;border-radius:14px;display:flex;justify-content:center;align-items:center;font-size:22px;cursor:pointer;transition:.15s;border:2px solid transparent;user-select:none}
-.cell.sel{border-color:#00f5ff;box-shadow:0 0 12px #00f5ff;transform:scale(1.1)}
-.btn{width:100%;margin-top:12px;background:#00f5ff;color:#001a1a;padding:12px;border-radius:30px;font-weight:800;border:0;font-family:Poppins;cursor:pointer}
-.btn2{background:#0a2342;color:#fff;border:1px solid #00f5ff44;margin-top:8px}
-.l1{background:#ff3b6a33}.l2{background:#ff9f1a33}.l3{background:#ffe21a33}.l4{background:#00f5ff33}.l5{background:#a855f733}.l6{background:#ff00ff55}
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA POTION</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+body{margin:0;background:#070a14;color:#fff;font-family:Poppins}
+header{height:60px;background:#131a33;display:flex;align-items:center;padding:0 15px}
+header img{width:38px;height:38px;border-radius:50%;border:2px solid #00f5ff}
+.wrap{max-width:400px;margin:15px auto;padding:15px;text-align:center}
+.top{display:flex;justify-content:space-between;background:#131a33;border:1px solid #1e2a5a;padding:12px 18px;border-radius:18px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;background:#131a33;padding:10px;border-radius:20px;min-height:380px}
+.cell{aspect-ratio:1;border-radius:12px;display:flex;justify-content:center;align-items:center;font-weight:800;font-size:18px}
+.btn{width:100%;margin-top:10px;padding:13px;border-radius:30px;border:0;font-weight:800;background:#00f5ff}
 </style></head><body>
-<header><img src="arka.png" onclick="location.href='index.html'" style="cursor:pointer"><span style="margin-left:10px;font-weight:800;letter-spacing:3px">ARKA / POTION</span></header>
+<header><img src="arka.png" onclick="location.href='index.html'"><span style="margin-left:10px;font-weight:800;letter-spacing:2px">ARKA / POTION</span></header>
 <div class="wrap">
-<div class="top"><span>SCORE: <b id="sc" style="color:#00f5ff">0</b></span><span>TAP + SLIDE!</span></div>
+<div class="top"><span>SCORE:<b id="sc" style="color:#00f5ff">0</b></span><span>TAP+SLIDE!</span></div>
 <div class="grid" id="grid"></div>
-<button class="btn" onclick="reset()">RESET POTION</button>
-<button class="btn btn2" onclick="location.href='index.html'">← HOME</button>
+<button class="btn" onclick="location.reload()">RESET POTION</button>
+<button class="btn" style="background:#0a2342;color:#fff;border:1px solid #00f5ff44" onclick="location.href='index.html'">← HOME</button>
 </div>
 <script>
-const icons=['🧪','⚗️','🧫','💧','🔮','👑'];
-let size=6,cells=[],sel=[],score=0,audioCtx;let gridEl=document.getElementById('grid');
-function popSound(lvl){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=250+lvl*140;g.gain.setValueAtTime(0.5,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.3);o.start();o.stop(audioCtx.currentTime+0.3);if(lvl>=3)setTimeout(()=>popSound(lvl-1),90)}catch(e){}}
-function randLvl(){return Math.random()<0.6?0:Math.random()<0.8?1:2}
-function makeGrid(){gridEl.innerHTML='';cells=[];for(let i=0;i<size*size;i++){let lvl=randLvl();cells[i]=lvl;let d=document.createElement('div');d.className='cell l'+(lvl+1);d.innerText=icons[lvl];d.dataset.i=i;d.addEventListener('touchstart',start,{passive:false});d.addEventListener('mousedown',start);d.addEventListener('touchmove',move,{passive:false});d.addEventListener('mousemove',move);d.addEventListener('touchend',end);d.addEventListener('mouseup',end);gridEl.appendChild(d)}render()}
-function render(){[...gridEl.children].forEach((el,i)=>{el.className='cell l'+(cells[i]+1)+(sel.includes(i)?' sel':'');el.innerText=icons[cells[i]]});sc.innerText=score}
-let dragging=false;function idxToRC(i){return[Math.floor(i/size),i%size]}function isNeighbor(a,b){let[ra,ca]=idxToRC(a),[rb,cb]=idxToRC(b);return Math.abs(ra-rb)<=1&&Math.abs(ca-cb)<=1&&a!=b}
-function start(e){e.preventDefault();dragging=true;sel=[];let i=+e.currentTarget.dataset.i;sel=[i];render()}
-function move(e){if(!dragging)return;let t=e.touches?document.elementFromPoint(e.touches[0].clientX,e.touches[0].clientY):e.target;if(!t||!t.dataset.i)return;let i=+t.dataset.i;if(sel.includes(i))return;if(cells[i]!=cells[sel[0]])return;if(!isNeighbor(sel[sel.length-1],i))return;sel.push(i);popSound(0);render()}
-function end(){if(!dragging)return;dragging=false;if(sel.length>=2){let base=cells[sel[0]];let last=sel[sel.length-1];sel.forEach((idx,j)=>{if(j!=sel.length-1)cells[idx]=-1});cells[last]=Math.min(base+1,icons.length-1);score+=(base+1)*sel.length*10;popSound(base+1);navigator.vibrate&&navigator.vibrate(50);for(let c=0;c<size;c++){let col=[];for(let r=size-1;r>=0;r--){let id=r*size+c;if(cells[id]!=-1)col.push(cells[id])}for(let r=size-1;r>=0;r--){let id=r*size+c;cells[id]=col[size-1-r]!==undefined?col[size-1-r]:randLvl()}}}sel=[];render()}else{sel=[];render()}}
-function reset(){score=0;makeGrid()}makeGrid();
+const cols=['#ff3b6a','#ff9f1a','#ffe21a','#00f5ff','#a855f7','#ff00ff'];
+let cells=[],sel=[],score=0,grid=document.getElementById('grid');
+function rnd(){return Math.floor(Math.random()*3)}
+function make(){grid.innerHTML='';cells=[];for(let i=0;i<36;i++){cells[i]=rnd();let d=document.createElement('div');d.className='cell';d.style.background=cols[cells[i]]+'33';d.style.border='2px solid '+cols[cells[i]];d.innerText=cells[i]+1;d.dataset.i=i;d.onpointerdown=e=>{sel=[+e.target.dataset.i];draw()};d.onpointerenter=e=>{if(sel.length&&+e.target.dataset.i!=sel[sel.length-1]&&Math.abs((+e.target.dataset.i%6)-(sel[sel.length-1]%6))<=1&&Math.abs(Math.floor(+e.target.dataset.i/6)-Math.floor(sel[sel.length-1]/6))<=1&&cells[+e.target.dataset.i]==cells[sel[0]]&&!sel.includes(+e.target.dataset.i)){sel.push(+e.target.dataset.i);draw()}};grid.appendChild(d)}}
+function draw(){[...grid.children].forEach((el,i)=>{el.style.transform=sel.includes(i)?'scale(1.15)':'';el.style.boxShadow=sel.includes(i)?'0 0 12px '+cols[cells[i]]:''});}
+grid.onpointerup=()=>{if(sel.length>=2){let last=sel[sel.length-1];let base=cells[sel[0]];sel.slice(0,-1).forEach(id=>cells[id]=-1);cells[last]=Math.min(base+1,5);score+= (base+1)*sel.length*10;sc.innerText=score;for(let c=0;c<6;c++){let col=[];for(let r=5;r>=0;r--){let id=r*6+c;if(cells[id]!=-1)col.push(cells[id])}for(let r=5;r>=0;r--){let id=r*6+c;cells[id]=col[5-r]!==undefined?col[5-r]:rnd()}}make()}sel=[];draw()};
+make();
 </script></body></html>
