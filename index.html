@@ -1,43 +1,34 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARKA</title><style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#070a14;font-family:Poppins;display:flex;flex-direction:column}
-header{width:100%;height:60px;background:#131a33;display:flex;align-items:center;padding:0 15px;border-bottom:1px solid #00f5ff22}
-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #00f5ff}
-header span{color:#fff;font-weight:800;margin-left:10px;letter-spacing:3px}
-.main{flex:1;display:flex;justify-content:center;align-items:center;background:#070a14;padding:20px}
-/* WARNA UDAH ARKA */
-.box{position:relative;width:300px;height:380px;background:#131a33;border:1px solid #1e2a5a;border-radius:50px;display:flex;justify-content:center;align-items:center;box-shadow:0 0 20px #00f5ff11}
-.cards{position:relative;width:180px;height:220px}
-.card{position:absolute;width:160px;height:160px;border-radius:30px;display:flex;flex-direction:column;justify-content:center;padding:15px;text-decoration:none;color:#fff;font-weight:800;font-size:13px;transition:all.6s cubic-bezier(.68,-0.55,.27,1.55);left:0;top:0;border:1px solid #ffffff11}
-.card:nth-child(1){background:#00f5ff;color:#001a1a;z-index:4}
-.card:nth-child(2){background:#00d0ff;color:#001a1a;z-index:3}
-.card:nth-child(3){background:#0099cc;z-index:2}
-.card:nth-child(4){background:#0a2342;z-index:1}
-.btn{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:60px;height:40px;background:#131a33;border:2px solid #00f5ff;border-radius:0 0 25px 25px;display:flex;justify-content:center;align-items:center;box-shadow:0 0 15px #00f5ff55;cursor:pointer}
-.btn img{width:20px;filter:invert(1);transition:.6s}
-@media(min-width:768px){.box{width:420px;height:520px}.card{width:220px;height:220px;font-size:18px}.cards{width:240px;height:300px}}
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{margin:0;background:#ffda8a;font-family:Poppins,sans-serif;display:flex;justify-content:center;padding:20px}
+.box{position:relative;width:310px;background:#fff;border-radius:50px;padding:30px 30px 50px;box-shadow:0 10px 0 #0001}
+.card{position:relative;width:200px;height:160px;background:#ff9f1c;border-radius:30px 30px 30px 30px;padding:15px;color:#fff;font-weight:800;margin-bottom:22px;transition:.6s cubic-bezier(.68,-0.55,.27,1.55)}
+/* coakan kanan kayak di foto */
+.card::after{content:'';position:absolute;right:-1px;top:55%;width:28px;height:40px;background:#fff;border-radius:20px 0 0 20px}
+.card b{font-size:13px}
+.icon{font-size:50px;margin-top:10px;display:block;text-align:center}
+.btn{position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:70px;height:45px;background:#fff;border-radius:0 0 30px 30px;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 8px 0 #0001}
+.btn::before{content:'';position:absolute;top:0;left:-20px;width:20px;height:20px;background:radial-gradient(circle at 0 100%, transparent 20px, #fff 21px)}
+.btn::after{content:'';position:absolute;top:0;right:-20px;width:20px;height:20px;background:radial-gradient(circle at 100% 100%, transparent 20px, #fff 21px)}
 </style></head><body>
-<header><img src="arka.png"><span>ARKA</span></header>
-<div class="main"><div class="box">
-<div class="cards">
-<a href="about.html" class="card" id="c0">ABOUT</a>
-<a href="#" class="card" id="c1">WORK</a>
-<a href="#" class="card" id="c2">CONTACT</a>
-<a href="#" class="card" id="c3">PLAY</a>
+<div class="box" id="box">
+<div class="card" style="margin-top:0" id="c0"><b>Burger</b></div>
+<div class="card" id="c1"><b>Chicken</b><span class="icon">🍗</span></div>
+<div class="card" id="c2"><b>Pizza</b><span class="icon">🍕</span></div>
+<div class="card" id="c3"><b>Lollipop</b><span class="icon">🍭</span></div>
+<div class="btn" onclick="go()"><span id="ar" style="font-size:22px;transition:.6s">⌃</span></div>
 </div>
-<div class="btn" onclick="go()"><img id="ic" src="https://img.icons8.com/ios-filled/50/ffffff/sort-down.png"></div>
-</div></div>
 <script>
-let o=0;
+let o=1; // 1 = buka kayak foto mu
 function go(){
- let cs=[c0,c1,c2,c3], ic=document.getElementById("ic");
- if(o==0){
-  let y=0; for(let i=0;i<4;i++){cs[i].style.top=y+"px"; y+=38}
-  ic.style.rotate="180deg"; o=1;
- }else{
-  for(let i=0;i<4;i++){cs[i].style.top="0px"}
-  ic.style.rotate="0deg"; o=0;
+ let cs=[c0,c1,c2,c3];
+ if(o==1){ // tutup jadi numpuk
+  for(let i=0;i<4;i++){cs[i].style.marginTop="-130px"; cs[i].style.transform=`translateX(${i*6}px)`}
+  ar.style.rotate="180deg"; o=0;
+ }else{ // buka lagi kayak foto mu
+  for(let i=0;i<4;i++){cs[i].style.marginTop="0px"; cs[i].style.transform="translateX(0px)"}
+  ar.style.rotate="0deg"; o=1;
  }
 }
-window.onload=()=>{for(let i=0;i<4;i++){document.getElementsByClassName("card")[i].style.top="0px"; document.getElementsByClassName("card")[i].style.marginTop=(i*8)+"px";}}
-</script></body></html>
+</script>
+</body></html>
