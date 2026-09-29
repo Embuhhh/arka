@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ARKA - PENTAGON RUSH</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070a14;color:#fff;font-family:Poppins;overflow:hidden;touch-action:none}
+header{position:absolute;top:0;width:100%;height:56px;background:#131a33cc;backdrop-filter:blur(10px);display:flex;align-items:center;padding:0 15px;z-index:10;border-bottom:1px solid #00f5ff22}
+header img{width:36px;height:36px;border-radius:50%;border:2px solid #00f5ff}
+#cv{width:100vw;height:100vh;display:block}
+.hud{position:absolute;top:70px;left:15px;right:15px;display:flex;justify-content:space-between;z-index:10;pointer-events:none}
+.hud b{color:#00f5ff;font-size:20px}
+.controls{position:absolute;bottom:20px;left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;z-index:10}
+.btn{width:80px;height:80px;border-radius:50%;background:#131a33;border:2px solid #00f5ff55;color:#00f5ff;font-size:32px;display:flex;align-items:center;justify-content:center;user-select:none}
+.btn:active{background:#00f5ff;color:#001a1a}
+#over{position:absolute;inset:0;background:#070a14ee;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:20;text-align:center;padding:20px}
+#over h1{font-size:36px;letter-spacing:3px}
+#over button{margin-top:15px;padding:14px 30px;border-radius:30px;border:0;background:#00f5ff;font-weight:800;font-family:Poppins}
+</style></head><body>
+<header><img src="arka.png" onclick="location.href='index.html'"><span style="margin-left:10px;letter-spacing:2px;font-weight:800">ARKA / PENTAGON RUSH</span></header>
+<canvas id="cv"></canvas>
+<div class="hud"><span>SCORE <b id="sc">0</b></span><span>BEST <b id="best">0</b></span></div>
+<div class="controls"><div class="btn" id="left">‹</div><div class="btn" id="right">›</div></div>
+<div id="over"><h1>CRASHED!</h1><p id="final"></p><button onclick="start()">RUSH AGAIN</button><button onclick="location.href='index.html'" style="background:#0a2342;color:#fff;border:1px solid #00f5ff55;margin-top:10px">HOME</button></div>
+<script>
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+let W,H, playerLane=0, score=0, best=localStorage.getItem('arka-pent-best')||0, speed=4, obstacles=[], t=0, alive=true, audio;
+bestEl=document.getElementById('best'); bestEl.innerText=best;
+function sound(f){try{if(!audio)audio=new AudioContext();let o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=f;g.gain.setValueAtTime(.3,audio.currentTime);g.gain.exponentialRampToValueAtTime(.01,audio.currentTime+.2);o.start();o.stop(audio.currentTime+.2)}catch(e){}}
+function resize(){W=cv.width=innerWidth; H=cv.height=innerHeight} resize(); addEventListener('resize',resize);
+function pentagonPoints(cx,cy,r,rot=0){let pts=[];for(let i=0;i<5;i++){let a=(Math.PI*2/5)*i -Math.PI/2 +rot; pts.push([cx+Math.cos(a)*r, cy+Math.sin(a)*r])}return pts}
+function lanePos(lane, radius, rot){let a=(Math.PI*2/5)*lane -Math.PI/2 +rot; return [W/2+Math.cos(a)*radius, H/2+Math.sin(a)*radius]}
+function start(){score=0; speed=4; obstacles=[]; playerLane=0; alive=true; t=0; over.style.display='none'; requestAnimationFrame(loop)}
+function spawn(){let lane=Math.floor(Math.random()*5); obstacles.push({lane, z:800, r:18})}
+function loop(){
+ if(!alive) return;
+ t+=0.02; ctx.fillStyle='#070a14'; ctx.fillRect(0,0,W,H);
+ // tunnel effect
+ for(let i=10;i>0;i--){let r=(i*60 + (t*200)%60); let rot=t*0.3; let pts=pentagonPoints(W/2,H/2,r,rot); ctx.strokeStyle=`rgba(${0+i*8},${245-i*10},${255},${0.08+i*0.04})`; ctx.lineWidth=2; ctx.beginPath(); pts.forEach((p,j)=>{j==0?ctx.moveTo(p[0],p[1]):ctx.lineTo(p[0],p[1])}); ctx.closePath(); ctx.stroke();
+  // lane lines
+  pts.forEach(p=>{ctx.beginPath(); ctx.moveTo(W/2,H/2); ctx.lineTo(p[0],p[1]); ctx.strokeStyle='rgba(0,245,255,0.07)'; ctx.stroke()});
+ }
+ // obstacles
+ if(Math.random()<0.04) spawn();
+ obstacles.forEach(o=>{o.z-=speed;});
+ obstacles=obstacles.filter(o=>o.z>-50);
+ obstacles.forEach(o=>{
+  let scale=800/(800+o.z); let r=o.r*scale*3;
+  let [x,y]=lanePos(o.lane, (H*0.38)*scale, t*0.3);
+  ctx.fillStyle=o.z<80? '#ff3b6a' : '#ff9f1a';
+  ctx.shadowColor=ctx.fillStyle; ctx.shadowBlur=15*scale;
+  ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+  if(o.z<60 && o.z>0 && o.lane==playerLane){ alive=false; sound(80); navigator.vibrate&&navigator.vibrate(100); final.innerText='Score: '+Math.floor(score)+' | Best: '+best; if(score>best){best=Math.floor(score); localStorage.setItem('arka-pent-best',best); bestEl.innerText=best} over.style.display='flex'; }
+ });
+ // player
+ let [px,py]=lanePos(playerLane, H*0.38, t*0.3);
+ ctx.fillStyle='#00f5ff'; ctx.shadowColor='#00f5ff'; ctx.shadowBlur=20;
+ ctx.beginPath(); ctx.moveTo(px,py-16); ctx.lineTo(px-12,py+12); ctx.lineTo(px+12,py+12); ctx.closePath(); ctx.fill(); ctx.shadowBlur=0;
+ score+=0.15+speed*0.02; sc.innerText=Math.floor(score); speed+=0.002;
+ if(alive) requestAnimationFrame(loop);
+}
+function move(d){playerLane=(playerLane+d+5)%5; sound(400+playerLane*60)}
+left.onclick=()=>move(-1); right.onclick=()=>move(1);
+addEventListener('keydown',e=>{if(e.key=='ArrowLeft')move(-1); if(e.key=='ArrowRight')move(1)});
+let sx=0; cv.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+cv.addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>30) move(dx>0?1:-1)});
+start();
+</script></body></html>
